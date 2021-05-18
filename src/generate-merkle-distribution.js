@@ -1,4 +1,4 @@
-const { defaultAbiCoder } = require("@ethersproject/abi");
+const { ethers } = require("ethers");
 const { BigNumber } = require("@ethersproject/bignumber");
 const MerkleTree = require("./MerkleTree");
 const { bufferToHex, keccak256 } = require('ethereumjs-util')
@@ -61,12 +61,13 @@ const finalUserList = Object.keys(aggregateUserShareMap).map((address, index) =>
     .mul((aggregateUserShareMap[address] * PRECISION).toFixed(0))
     .div(PRECISION)
 
-  const nodeHash = (keccak256(
-      defaultAbiCoder.encode(
-        ['uint256', 'address', 'uint256'],
-        [index, address, amount]
-      )
-    ))
+  const nodeHash = Buffer.from(
+    ethers.utils.solidityKeccak256(
+      ['uint256', 'address', 'uint256'],
+      [index, address, amount]
+    ).substr(2),
+    'hex'
+  )
 
   return {
     index,
