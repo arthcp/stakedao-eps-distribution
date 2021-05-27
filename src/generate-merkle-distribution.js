@@ -8,7 +8,7 @@ const fs = require('fs');
 const PRECISION = 1000000
 
 // total amount of SDT that will be distributed
-const totalSDT = BigNumber.from('12894000000000000000000')
+const totalSDT = BigNumber.from('8781000000000000000000')
 
 // amount received by stakedao in each airdrop
 const amountsReceived = [{
